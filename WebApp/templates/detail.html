@@ -1,0 +1,16 @@
+{% extends "web.html" %}
+{% block body %}
+
+    <div class="main">
+      <h2>Congratulations{{ Search  }}!!</h2>
+      <h3>You have just register for donate the blood!!</h3>
+      <h4>You can see your filled information below!</h4>
+         <p>Firstname: {{ Name }}</p>
+         <p>Lastname: {{ phone_no }}</p>
+         <p>EmailId: {{ email_id }}</p>
+         <p>Blood Group: {{ blood_group }}</p>
+         <p>Phone No: {{ phone_no }}</p> 
+         <h4>Now, You can visit this site by login</h4>  
+    </div>
+
+{% endblock %}

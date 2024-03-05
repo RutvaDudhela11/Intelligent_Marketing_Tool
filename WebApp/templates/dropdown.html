@@ -1,0 +1,62 @@
+{% extends "web.html" %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var subjectObject = {%- for country in country %}
+                                      <option value="{{ country[0] }}">{{ country[1] }}</option> 
+                    {%- endfor %}
+
+window.onload = function() {
+  var subjectSel = document.getElementById("country");
+  var topicSel = document.getElementById("state");
+  var chapterSel = document.getElementById("city");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    chapterSel.length = 1;
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+</head>   
+<body>
+
+<h1>Cascading Dropdown Example</h1>
+
+<form name="form1" id="form1" action="/action_page.php">
+Countries: <select name="subject" id="country">
+    <option value="" selected="selected">Select subject</option>
+  </select>
+  <br><br>
+States: <select name="topic" id="state">
+    <option value="" selected="selected">Please select subject first</option>
+  </select>
+  <br><br>
+Cities: <select name="chapter" id="city">
+    <option value="" selected="selected">Please select topic first</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">  
+</form>
+
+</body>
+</html>
+{% endblock %}

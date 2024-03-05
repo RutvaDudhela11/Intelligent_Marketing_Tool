@@ -1,0 +1,53 @@
+{% extends "web.html" %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      <!-- <h3>
+         <a href = "{{ url_for('show_all') }}">Comments - Flask 
+            SQLAlchemy example</a>
+      </h3> -->
+      
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+		
+      <h3>Categories (<a href = "{% url 'new' %}">Add Category
+         </a>)</h3>
+      <form method="post">
+      <table>
+         <thead>
+            <tr>
+               
+               <th>Id</th>
+               <th>Name</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for category in categories %}
+               <tr>
+                  <td name= "c_name" value="{{ category.id }}">{{ category.id }}</td>
+                  <td>{{ category.name }}</td>
+                  <!-- <div class="row"> -->
+                  <td><a href="{% url 'show_all' %}"
+                     onclick="return confirm('Do you want to permanently upadate category {{ category.name }}?');" title="update a category"><i class="material-icons" style="font-size:16px"></i><input type="button" id="fup" name="update" value="Edit"> 
+                     <a href="{% url 'show_all' %}"
+                     onclick=" return confirm('Do you want to permanently delete category {{ category.id }}?');" title="Delete a category"><i class="material-icons" style="font-size:16px"><input type="button" id="fdelete" name="{{ category.id }}" value="Delete"></a></td>
+                     </tr>
+               
+            {% endfor %}
+         </tbody>
+      </table>
+      <h3>Categories (<a href = "{% url 'Search' %}">Search
+      </a>)</h3>
+   </form>
+   </body>
+</html>
+
+{% endblock %}

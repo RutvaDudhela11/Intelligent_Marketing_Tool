@@ -1,0 +1,33 @@
+{% extends "web.html" %}
+{% block body %}
+<div class="main">
+   <div class="container">
+      <h1>Countries </h1>
+      <a href = "{% url 'add' %}"><input type="button" id="fup" name="update" value="Add New Country"></a>
+      <form method="post">
+      <table>
+         <thead>
+            <tr>
+               <th>Serial No.</th>
+               <th>Name</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for c in country %}
+               <tr>
+                  <td name= "c_name" value="{{ c.id }}">{{ c.serial }}</td>
+                  <td>{{ c.name }}</td>
+                  <td><a href="{% url 'update country' c.id %}"
+                     onclick="return confirm('Do you want to permanently update country name {{ c.name }}?');" title="update a country"><i class="material-icons" style="font-size:16px"></i><input type="button" id="fup" name="update" value="Edit"></a> 
+                     <a href="{% url 'delete country' c.id %}"
+                     onclick=" return confirm('Do you want to permanently delete country {{ c.id }}?');" title="Delete a country"><i class="material-icons" style="font-size:16px"><input type="button" id="fdelete" name="{{ c.id }}" value="Delete"></a>
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      </form>
+   </div>
+</div>
+{% endblock %}

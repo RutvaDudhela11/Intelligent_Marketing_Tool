@@ -1,0 +1,33 @@
+{% extends "web.html" %}
+{% block body %}
+<div class="main">
+   <div class="container">
+      <h1>Categories</h1>
+      <a href = "{% url 'add category' %}"><input type="button" id="fup" name="update" value="Add New Category"></a>
+      <form method="post">
+      <table>
+         <thead>
+            <tr>
+               <th>Serial No.</th>
+               <th>Name</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for cat in category %}
+               <tr>
+                  <td name= "c_name" value="{{ cat.id }}">{{ cat.serial }}</td>
+                  <td>{{ cat.name }}</td>
+                  <td><a href="{% url 'update categoty' cat.id %}"
+                     onclick="return confirm('Do you want to permanently upadate category {{ cat.name }}?');" title="update a category"><i class="material-icons" style="font-size:16px"></i><input type="button" id="fup" name="update" value="Edit"></a> 
+                     <a href="{% url 'delete categoty' cat.id %}"
+                     onclick=" return confirm('Do you want to permanently delete category {{ cat.id }}?');" title="Delete a category"><i class="material-icons" style="font-size:16px"><input type="button" id="fdelete" name="{{ cat.id }}" value="Delete"></a>
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      </form>
+   </div>
+</div>
+{% endblock %}

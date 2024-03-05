@@ -1,0 +1,18 @@
+{% extends "web.html" %}
+{% block body %}
+
+<div class="main">
+   <div class="container">
+         <!-- Create a Form -->
+         <form action = "{{ request.path }}" method="POST">
+             <!-- Security token by Django -->
+             {% csrf_token %}
+      
+             <!-- form as paragraph -->
+             {{ form.as_p }}
+      
+             <input type="submit" value="Update">
+         </form>
+     </div>
+</div>
+{% endblock %}

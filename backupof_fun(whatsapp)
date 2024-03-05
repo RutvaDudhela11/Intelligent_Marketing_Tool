@@ -1,0 +1,200 @@
+# if request.method == 'POST':
+    #     check =  request.POST.getlist('mycheck')
+    #     print('check:',str(check))
+    #     for c in range(0, len(check)):
+    #         keyboard= Controller()
+    #         # THIS IS FOR MEMBER MODEL
+    #         List = Member.objects.filter(id=check[c]).values()
+    #         print('List =', List)
+    #         Name =List[0]['firstname']
+    #         phoneNumber =List[0]['phone']
+    #         print('values:', Name, phoneNumber)
+            
+    #         # phoneNumber= check[c]
+            
+    #         Message_type = request.POST['type']
+    #         print('selected_type =', Message_type)
+    #         if Message_type == "Personalized" :
+    #             print('fhf', Message_type)
+    #             try:
+    #                 # if data["existsWhatsapp"] == True :
+    #                     print('in')
+    #                     phone_no= str("+91" + str(phoneNumber))
+    #                     msg = request.POST['massage']
+    #                     Message = 'Dear '+ Name + ',\n' + msg
+    #                     # print(phone_no)
+    #                     print('massege::',Message)
+    #                     form = ImageForm(request.POST, request.FILES)
+    #                     # print('valid:',form)
+    #                     try:
+    #                         if request.FILES['img-file'] != '':
+    #                             file = request.FILES['img-file']
+    #                             print('File ::',file)
+    #                             if msg == "":
+    #                                 print('only image in general!')
+    #                                 pywhatkit.sendwhats_image(
+    #                                                             phone_no, 
+    #                                                             file,  
+    #                                                             tab_close=True)
+    #                             elif  msg!= "" and file != "":
+    #                                 print('elif: both in general!')
+    #                                 pywhatkit.sendwhats_image(
+    #                                                             phone_no, 
+    #                                                             file, Message, 
+    #                                                             tab_close=True)
+    #                     except:
+    #                         if msg != "" :
+    #                             print('else: only msg in general')
+    #                             pywhatkit.sendwhatmsg_instantly(
+    #                                 phone_no, 
+    #                                 Message, 
+    #                                 tab_close=True        )
+    #                     time.sleep(10)
+    #                     pyautogui.click()
+    #                     time.sleep(5)
+    #                     keyboard.press(Key.enter)
+    #                     keyboard.release(Key.enter)
+    #                     pyautogui.hotkey('ctrl', 'w')
+    #                     time.sleep(10) 
+    #                     pyautogui.press('enter')
+    #                     print("Image sent successfully!")
+    #                     # print('successfull!')
+    #                     # return render(request.url)
+                        
+    #             except Exception as e:
+    #                                 print(str(e))
+                       
+    #         else : 
+    #             print('else :', Message_type)
+    #             try:
+    #                 # if data["existsWhatsapp"] == True :
+    #                     print('in')
+    #                     phone_no= str("+91" + str(phoneNumber))
+    #                     msg = request.POST['massage']
+    #                     # Message = 'Dear '+ phoneNumber + ',\n' + msg
+    #                     print(phone_no)
+    #                     print('massege::',msg)
+
+    #                     form = ImageForm(request.POST, request.FILES)
+    #                     try:
+    #                         if request.FILES['img-file'] != '':
+    #                             file = request.FILES['img-file']
+    #                             print('File ::',file)
+    #                             if msg == "":
+    #                                 print('only image in general!')
+    #                                 pywhatkit.sendwhats_image(
+    #                                                             phone_no, 
+    #                                                             file,  
+    #                                                             tab_close=True)
+    #                             elif  msg!= "" and file != "":
+    #                                 print('elif: both in general!')
+    #                                 pywhatkit.sendwhats_image(
+    #                                                             phone_no, 
+    #                                                             file, msg, 
+    #                                                             tab_close=True)
+    #                     except:
+    #                         if msg != "" :
+    #                             print('else: only msg in general')
+    #                             pywhatkit.sendwhatmsg_instantly(
+    #                                 phone_no, 
+    #                                 msg, 
+    #                                 tab_close=True        )
+    #                     time.sleep(10)
+    #                     pyautogui.click()
+    #                     time.sleep(5)
+    #                     keyboard.press(Key.enter)
+    #                     keyboard.release(Key.enter)
+    #                     pyautogui.hotkey('ctrl', 'w')
+    #                     time.sleep(10)
+    #                     pyautogui.press('enter')
+    #                     print("Image sent successfully!")
+    #                     # print('successfull!')
+    #                     # return render(request.url)
+    #             except Exception as e:
+    #                                 print(str(e))
+            #     return render(request, 'whatsup.html')
+    # return render(request, 'whatsup.html')
+
+date: 17/04/23 - api whatsapp greenapi.com used here
+# from whatsapp_api_client_python import API as API
+    # import requests
+    # import json
+    # # p= "918200519044"
+    # # For Details
+    # phone = Details.objects.order_by('id').values('id', 'phone_no')
+    # print('length:', len(phone))
+    # # print('Phone no of details:',phone[0]['phone_no'])
+    # url = "https://api.green-api.com/waInstance1101805781/checkWhatsapp/76fb8cfcf49d46bc8841ab277be765281238879bf52c4044b5"
+    # for P in range(0, len(phone)):
+    #     phoneNo = phone[P]['phone_no']
+    #     # print('number index:', P)
+    #     payload = json.dumps({ "phoneNumber": phoneNo })
+    #     headers = {
+    #     'Content-Type': 'application/json'
+    #     }
+        
+    #     response = requests.request("POST", url, headers=headers, data = payload)
+    #     data=response.json()
+    #     # print('response:', data)
+    #     detail = Details.objects.all().order_by('id')[P]
+    #     try:
+    #         print('whatsapp details:', detail)
+    #         # print(P, 'response check:',data["existsWhatsapp"])
+    #         if response.status_code == 200:
+    #             print('Phone no of details:',phone[P]['id'])
+    #             whatsApp = data["existsWhatsapp"]
+    #             # print('id:',P, 'on whatsapp:', whatsApp)
+    #             if whatsApp == True:
+    #                 detail.whatsapp = "Yes"
+    #                 detail.save()
+    #                 print('for true: after save', detail.whatsapp)
+    #             else:
+    #                 detail.whatsapp = "No"
+    #                 detail.save()
+    #                 print('for true: after save', detail.whatsapp)
+    #         else:
+    #             detail.whatsapp = "Undefined"
+    #             detail.save()
+    #             print('Error: after save', detail.whatsapp)
+    #     except:
+    #          pass
+    # # for Members
+    # phone1 = Member.objects.order_by('id').values('id','phone')
+    # print('length:', len(phone1))
+    # print('phone list:', phone1)
+
+    # url = "https://api.green-api.com/waInstance1101805781/checkWhatsapp/76fb8cfcf49d46bc8841ab277be765281238879bf52c4044b5"
+    # for P in range(0, len(phone1)):
+    #     phoneNo1 = phone1[P]['phone']
+    #     # print('number index:', phoneNo)
+    #     payload = json.dumps({ "phoneNumber": phoneNo1 })
+    #     headers = {
+    #     'Content-Type': 'application/json'
+    #     }
+        
+    #     response = requests.request("POST", url, headers=headers, data = payload)
+    #     data=response.json()
+    #     # print('response check:',data["existsWhatsapp"])
+    #     # # print('type:',type(data))
+    #     print('response:', data)
+    #     member = Member.objects.all().order_by('id')[P]
+    #     # print('member', member)
+    #     try:
+    #         # print(P, 'response check:',data["existsWhatsapp"])
+    #         if response.status_code == 200:
+    #             print('Phone no of details:',phone1[P]['id'])
+    #             whatsApp = data["existsWhatsapp"]
+    #             if whatsApp == True:
+    #                 member.whatsapp = "Yes"
+    #                 member.save()
+    #                 print('for true: after save', member.whatsapp)
+    #             else:
+    #                 member.whatsapp = "No"
+    #                 member.save()
+    #                 print('for false: after save', member.whatsapp)
+    #         else:
+    #             member.whatsapp = "Undefined"
+    #             member.save()
+    #             print('Error: after save', member.whatsapp)
+    #     except:
+    #          pass

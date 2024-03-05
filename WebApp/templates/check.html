@@ -1,0 +1,35 @@
+{% extends "web.html" %}
+{% block body %}
+
+{% block content %}
+<h1> Selected phone no</h1>
+
+
+<form action="http://127.0.0.1:4000/wp/whatsApp", method ="post">
+  <p>{{ check }}</p>
+  <table>
+    <thead>
+      <tr>
+          <!-- <th> Name</th> -->
+          <th>Phone No</th>
+          <!-- <th>Select All<input type="checkbox"  name="mycheck" value='select all'></th> -->
+      </tr>
+      </thead>    
+      <tbody>
+       {% for row in check %}    
+              <tr>
+                  <td>{{row}}</td>
+                  <!-- <td>{{row[1]}}</td> -->
+                  <!-- <td>{{row[1]}} <input type="checkbox"  name="mycheck" value= {{row[1]}} ></td> -->
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+    <div class="row">
+        <input type="submit" value="Submit">
+      </div>
+</form>
+{% endblock %}
+
+
+{% endblock %}

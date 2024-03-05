@@ -1,0 +1,236 @@
+{% extends "web.html" %}
+{% block body %}
+<style>
+ th {
+         width: 150px;
+         text-align: center;
+         border: 1px solid black;
+         padding: 5px;
+       }
+  td {
+         width: 150px;
+         text-align: center;
+         border: 1px solid black;
+         padding: 5px;
+       }
+</style>
+<script type="text/javascript">  
+  function checkedAll() {
+    // this refers to the clicked checkbox
+    // find all checkboxes inside the checkbox' form
+    var elements = this.form.getElementsByTagName('input');
+    // iterate and change status
+    for (var i = elements.length; i--; ) {
+        if (elements[i].type == 'checkbox') {
+            elements[i].checked = this.checked;
+        }
+    }
+}
+  function checkAlert(evt, name){
+        if(name === 'country') {
+          this.countryId = evt.target.value;
+          window.location.href = "/phone_list/"  + "?country_id=" + encodeURIComponent(this.countryId) ;
+          // x =document.getElementById("country");
+          // i = x.selectedIndex;
+          // document.getElementById("c1").innerHTML = x.options[i].text;
+        } 
+        else if(name ==='state') {
+          this.stateId = evt.target.value;
+          window.location.href = "/phone_list/"  + "?state_id=" + encodeURIComponent(this.stateId) ;
+          // x1 =document.getElementById("state");
+          // i = x1.selectedIndex;
+          // document.getElementById("c2").innerHTML = x1.options[i].text;
+        }
+        else if(name ==='city') {
+          this.cityId = evt.target.value;
+          window.location.href = "/phone_list/"  + "?city_id=" + encodeURIComponent(this.cityId) ;
+          // x3 =document.getElementById("city");
+          // i = x3.selectedIndex;
+          // document.getElementById("c3").innerHTML = x3.options[i].text;
+        }
+        else if(name ==='category') {
+          this.categoryId = evt.target.value;
+          window.location.href = "/phone_list/"  + "?category_id=" + encodeURIComponent(this.categoryId) ;
+          // x4 =document.getElementById("category");
+          // i = x4.selectedIndex;
+          // document.getElementById("c4").innerHTML = x4.options[i].text;
+        }
+        let data = {
+          country_id : this.countryId,
+          state_id : this.stateId,
+          city_id : this.cityId,
+          category_id : this.categoryId
+        }
+        // console.log(data);
+        // window.location.href = "/phone_list/"  + "?data=" + encodeURIComponent(data);
+        
+        
+          // console.log(evt.target.value);
+          // myForm2 = document.getElementById("myForm");
+          // myForm2.submit();
+      }     
+</script>  
+<div class="main">
+<div class="container">
+  <h1>Messages:</h1>
+<form action="{% url 'whatsapp' %}"  method ="POST" id="myForm" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="row">
+      <div class="col-20">
+          <label>Select Country:</label>
+            <select name="country" data-live-search="true" id="country" class="form-control" title="Select Country" onchange="checkAlert(event, 'country')"> 
+              <option value="select">select country.....</option>
+            {% for c in country %}
+                  <option value="{{c.id}}"   >
+                              {{c.name}}</option>
+            {% endfor %}
+            </select>
+      </div>
+      
+    <!-- </div> -->
+    <!-- <div class="row"> -->
+      <div class="col-20">
+          <label>Select State:</label>
+            <select name="state" data-live-search="true" id="state" class="form-control" title="Select State" onchange="checkAlert(event, 'state')">
+              <option value="select">select state.....</option>
+              {% for s in state %}
+                  <option value="{{s.id}}"   >
+                              {{s.state_name}}</option>
+            {% endfor %}
+           </select>
+      </div>
+      
+    <!-- </div> -->
+    <!-- <div class="row"> -->
+      <div class="col-20">
+          <label>Select City:</label>
+            <select name="city" data-live-search="true" id="city" class="form-control" title="Select city" onchange="checkAlert(event, 'city')" >
+              <option value="select">select city.....</option>
+              {% for c in city %}
+                  <option value="{{c.id}}"  >
+                              {{c.city_name}}</option>
+            {% endfor %}
+            </select>
+      </div>
+      
+      <!-- </div> -->
+      <!-- <div class="row"> -->
+        <div class="col-20">
+          <label for="category-names">Choose a Category:</label>
+          <select name="selection" id="category" onchange="checkAlert(event, 'category')">
+              <option value="select">select category.....</option>
+              {% for category in category %}
+                                <option value="{{ category.id }}">{{ category.name }}</option> 
+              {% endfor %}
+          </select>
+        </div>
+        
+      </div>
+
+      <div class="row">
+        <div class="col-20">
+        <a href="{% url 'phone number' %}"><input type="button" value="Check Phone Number is on Whatsapp!"></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-20">
+        <a href="{% url 'filter-whatsapp' %}"><input type="button" value="WhatsApp Numbers"></a>
+        </div>
+      </div>
+      <h2>Enter below details</h2>
+
+      <!-- <form method="post" action="{% url 'whatsapp' %}" enctype="multipart/form-data"></form>
+      {% csrf_token %} -->
+      <table>
+        <thead>
+          <tr>
+              <th> <input type="checkbox" onclick="checkedAll.call(this);" />Select All</th>
+              <th>Name</th>
+              <th>Phone No</th>
+              <th>Whatsapp</th>
+              <th>Category_Name</th>
+              <th>City_Name</th>
+              <th>State_Name</th>
+              <th>Country_Name</th>
+          </tr>
+          </thead>    
+          <tbody>
+          {% for d in details %}    
+                  <tr>
+                    <td> <input type="checkbox"  name="mycheck" value= {{d.id}} ></td>
+
+                      <td>{{d.name}}</td>
+                      <td><a href="tel:{{d.phone_no}}">{{d.phone_no}}</a></td>
+                      <td>{{d.whatsapp}}</td>
+                      <td>{{d.category}}</td>
+                      <td>{{d.city}}</td>
+                      <td>{{d.state}}</td>
+                      <td>{{d.country}}</td>
+
+                      
+                  </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+                <th><input type="checkbox" onclick="checkedAll.call(this);" />Select All</th>
+                <th> Name</th>
+                <th>Phone No</th>
+                <th>whatsApp</th>
+            </tr>
+            </thead>  
+            <tbody>
+              {% for m in members %}    
+                      <tr>
+                          <td> <input type="checkbox"  name="mycheck" value={{m.id}} ></td>
+                          <td>{{m.firstname}}</td>
+                          <td><a href="tel:{{m.phone}}">{{m.phone}}</a></td>
+                          <td>{{m.whatsapp}}</td>
+                      </tr>
+              {% endfor %}
+              </tbody>
+        </table>
+        <div class="row">
+          <div class="col-25">
+            <label for="fname"> Massage Type :</label></div>
+            <input type="radio" id="Generalized" name="type" value="Generalized" checked><label for="html">Generalized</label>
+            <input type="radio" id="Personalized" name="type" value="Personalized"><label for="html">Personalized</label>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="fname">Enter Massage:</label>
+          </div>
+          <div class="col-25">
+            <textarea rows="4" cols="50" id="msg" name="massage" placeholder="Enter massage you want to send.."></textarea>
+            <!-- <input type="text" id="msg" name="massage" placeholder="Enter massage you want to send.."> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="fname">Select a image to send:</label></div> 
+            <p>
+              {% if messages %}
+                <ul>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+              <dl>
+                <p>
+                    <input type="file" name="img-file" class="form-control" autocomplete="off" >
+                </p>
+              </dl>
+            </p>
+        </div>
+        <div class="row">
+          <input type="submit" value="Submit">
+        </div>
+</form>
+</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,257 @@
+body {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  font-weight: bold;
+  background-color: rgb(70, 70, 70);
+  /* overflow: hidden; */
+  /* overflow: auto; */
+  /* overflow-x: hidden; */ 
+  padding: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 8px;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  background-color: lightgray;
+}
+
+/* Main content */
+.main {   
+  flex: 100%;
+  height: 100% !important;
+  /* background-color: rgba(126, 118, 118, 0.63); */
+  font-size: 17px;
+  /* padding: 20px; */
+  margin-left: 200px;
+  overflow: auto;
+  /* background-color: white; */
+  background-color: white;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  /* background-color: rgb(0, 0, 0); */
+  color: #1f1e1e;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-open .dropdown-container {
+  display: block;
+  /* background-color: rgba(126, 118, 118, 0.356); */
+  padding-left: 8px;
+}
+.dropdown-container {
+  display: none;
+  /* background-color: rgba(126, 118, 118, 0.356); */
+  padding-left: 8px;
+}
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+
+/* Fake image, just for this example */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit], input[type=file] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* float: left; */
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: lightgray;
+  margin-left: 200px;
+}
+
+input[type=button] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 10px 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* float: right; */
+}
+input[type=button]:hover {
+  background-color: #4fb693be;
+  color: black;
+
+}
+/* button[type=button] {
+  background-color: #49d87483;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+} */
+
+/* button[type=button]:hover {
+  background-color: #668167;
+} */
+.container {
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+}
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+.col-20 {
+  float: left;
+  width: 20%;
+  margin-top: 6px;
+}
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+th {
+  width: 100px;
+  text-align: center;
+  /* border: 1px solid rgb(0, 0, 0); */
+  padding: 1px;
+}
+td {
+  width: 100px;
+  text-align: center;
+  /* border: 1px solid black; */
+  padding: 1px;
+}
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  animation: loading 2s infinite ease-out;
+  margin: auto;
+  border-radius: 100%;
+  background-color: gray;
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(8);
+    opacity: 0;
+  }
+}
+/* @-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} */
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+#myDiv {
+  display: none;
+  /* text-align: center; */
+}

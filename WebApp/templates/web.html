@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>WEB SCRAPPING</title>
+<link href="{% static 'style.css' %}" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="myFunction()">
+  <div id="loader"></div>
+  <div class="sidenav">
+    <img src="{% static 'Bintech.png' %}" width="150" height="50" alt="Bintech Logo">
+    <a class="dropdown-btn" onclick="toggleDropdown()">Masters  
+      <i class="fa fa-caret-down"></i>
+    </a>
+    <div class="dropdown-container">
+      <a href="{% url 'country' %}">Country </a>
+      <a href="{% url 'state' %}">State</a>
+      <a href="{% url 'city' %}">City</a>
+      <a href="{% url 'category' %}">Category</a>
+    </div>
+    <a href="{% url 'Search' %}">Search</a>
+    <a href="{% url 'Urls' %}">Urls </a>
+    <a href="{% url 'Details' %}">Details </a>
+    <a href="{% url 'Phone List' %}">Messages</a>
+    <!-- <a href="{% url 'About' %}">About</a> -->
+  </div>
+<div style="display:none;" id="myDiv" class="animate-bottom">
+
+{% block body %} {% endblock %}
+
+</div>
+<script>
+  function toggleDropdown() {
+  var dropdown = document.querySelector('.dropdown-btn');
+  var container = document.querySelector('.dropdown-container');
+  dropdown.classList.toggle('dropdown-open');
+  if (dropdown.classList.contains('dropdown-open')) {
+    container.style.display = 'block';
+    localStorage.setItem('dropdownState', 'open');
+  } else {
+    container.style.display = 'none';
+    localStorage.setItem('dropdownState', 'closed');
+  }
+}
+  window.addEventListener('load', function() {
+    var dropdown = document.querySelector('.dropdown-btn');
+    var dropdownState = localStorage.getItem('dropdownState');
+    if (dropdownState === 'open') {
+      dropdown.classList.add('dropdown-open');
+      var container = document.querySelector('.dropdown-container');
+      container.style.display = 'block';
+    }
+    else  {
+      dropdown.classList.add('dropdown-open');
+      var container = document.querySelector('.dropdown-container');
+      container.style.display = 'none';
+    }
+  });
+
+  var myVar;
+  function myFunction() {
+    myVar = setTimeout(showPage, 3000);
+  }
+  function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  // var dropdown = document.getElementsByClassName("dropdown-btn");
+  // var i;
+  
+  // for (i = 0; i < dropdown.length; i++) {
+  //   dropdown[i].addEventListener("click", function() {
+  //     this.classList.toggle("active");
+  //     var dropdownContent = this.nextElementSibling;
+  //     if (dropdownContent.style.display === "block") {
+  //       dropdownContent.style.display = "none";
+  //     } else {
+  //       dropdownContent.style.display = "block";
+  //     }
+  //   });
+  // }
+  </script>
+</body>
+</html>

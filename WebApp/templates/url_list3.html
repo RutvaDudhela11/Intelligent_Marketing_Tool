@@ -1,0 +1,56 @@
+{% extends "web.html" %}
+{% block body %}
+<style>
+ 
+    td {
+           width: 150px;
+           text-align: center;
+           border: 1px solid black;
+           padding: 5px;
+         }
+</style>
+<!-- {%- for message in get_flashed_messages() %}
+{{ message }}
+{%- endfor %} -->
+<form action="{{url_for('Url')}}"  method ="POST" id="myForm">
+  
+  <label for="category-names">Choose a Category:</label>
+  <select name="selection" id="category" onchange="checkAlert(event)">
+      <option value="select">select category.....</option>
+      {%- for category in category %}
+                         <option value="{{ category[0] }}">{{ category[1] }}</option> 
+      {%- endfor %}
+  </select>
+</form>
+<script>
+    function checkAlert(evt){
+        console.log(evt.target.value);
+        myForm = document.getElementById("myForm");
+        myForm.submit();
+    }
+</script>
+<form action="http://127.0.0.1:4000/search/submit/process"  methods="post">
+<table>
+    <thead>
+      <tr>
+          <th>Url-ID</th>
+          <th>Category-ID</th>
+          <th>URLS</th>
+          <!-- <th>expiry timestamp</th> -->
+      </tr>
+      </thead>    
+      <tbody>
+       {% for row in data %}    
+              <tr>
+                  <td>{{row[0]}}</td>
+                  <td>{{row[1]}}</td>
+                  <td>{{row[2]}}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  <div class="row">
+    <input type="submit" value="Process">
+  </div>
+</form>
+{% endblock %}

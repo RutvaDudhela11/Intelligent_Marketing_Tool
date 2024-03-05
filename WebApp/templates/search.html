@@ -1,0 +1,90 @@
+
+<!-- form.html is replaced by search.html -->
+
+{% extends "web.html" %}
+{% block body %}
+<div class="main">
+  <div class="container">
+    <h1>Search Data:</h1> 
+    <form action="{% url 'Submit' %}", method ="post" >
+        {% csrf_token %}
+                    <div class="row">
+                        <div class="col-25">
+                            <label>Select Country:</label>
+                        </div>
+                        <div class="col-25">
+                            <select name="country" data-live-search="true" id="country" class="form-control" title="Select Country"> 
+                      <option value="select">select country.....</option>
+
+                            {% for c in country %}
+                            <option value="{{c.id}}">{{c.name}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label>Select State:</label>
+                        </div>
+                        <div class="col-25">
+                            <select name="state" data-live-search="true" id="state" class="form-control" title="Select State">
+                      <option value="select">select state.....</option>
+
+                              {% for s in state %}
+                            <option value="{{s.id}}">{{s.state_name}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label>Select City:</label>
+                        </div>
+                        <div class="col-25">
+                            <select name="city" data-live-search="true" id="city" class="form-control" title="Select city">
+                      <option value="select">select city.....</option>
+
+                              {% for cy in city %}
+                            <option value="{{cy.id}}">{{cy.city_name}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-25">
+                        <label for="dog-names">Select a Category:</label>
+                      </div>
+                      <div class="col-25">
+                        <select name="selected_category" id="category">
+                            <option value="select">select category.....</option>
+                              {% for category in category %}
+                                      <option value="{{ category.id }}">{{ category.name }}</option> 
+                            {% endfor %}
+                        </select>
+                      </div>
+                    </div> 
+                    <div class="row">
+                      <div class="col-25">
+                        <label for="fname">Name</label>
+                      </div>
+                      <div class="col-25">
+                        <input type="text" id="fname" name="search" placeholder="Search here..">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <input type="submit" value="Submit">
+                    </div>
+              <!-- <div class="row">
+                <div class="col-25">
+                  <label for="lname">Place</label>
+                </div>
+                <div class="col-25">
+                  <input type="text" id="pr" name="place" placeholder="Enter place..">{{cy.city_name}}
+                </div>
+              </div> -->
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,172 @@
+{% extends "web.html" %}
+{% block body %}
+
+
+    <div class="main">
+      <!-- <h2>congratulations!! the data of urls are successfullly stored on the webapp....</h2> -->
+      <!-- <h5></h5> -->
+         <div class="container">
+          <h1>Details:</h1>
+
+            <style>
+                th {
+                      width: 150px;
+                      text-align: center;
+                      border: 1px solid black;
+                      padding: 1px;
+                    }
+                td {
+                       width: 1px;
+                       text-align: center;
+                       border: 1px solid black;
+                       padding: 1px;
+                     }
+                tr {
+                       width: 1px;
+                       text-align: center;
+                       border: 1px solid black;
+                       padding: 1px;
+                     }
+            </style>
+    <form action="{% url 'Details' %}"  method ="POST" id="myForm2">
+        {% csrf_token %}
+      <div class="row">
+        <div class="col-20">
+            <label>Select Country:</label>
+            <select name="country" data-live-search="true" id="country" class="form-control" title="Select Country" onchange="checkAlert(event, 'country')"> 
+              <option value="select">select country.....</option>
+              {% for c in country %}
+              <option value="{{c.id}}">{{c.name}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <div class="col-20">
+            <label>Select State:</label>
+            <select name="state" data-live-search="true" id="state" class="form-control" title="Select State" onchange="checkAlert(event, 'state')">
+            <option value="select">select state.....</option>
+            {% for s in state %}
+            <option value="{{s.id}}">{{s.state_name}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="col-20">
+            <label>Select City:</label>
+            <select name="city" data-live-search="true" id="city" class="form-control" title="Select city" onchange="checkAlert(event, 'city')">
+            <option value="select">select city.....</option>
+                {% for cy in city %}
+                <option value="{{cy.id}}">{{cy.city_name}}</option>
+                {% endfor %}    
+            </select>
+        </div>
+        <div class="col-20">
+          <label for="category-names">Choose a Category:</label>
+          <select name="selection" id="category" onchange="checkAlert(event, 'category')">
+              <option value="select">select category.....</option>
+              {% for category in category %}
+                                <option value="{{ category.id }}">{{ category.name }}</option> 
+              {% endfor %}
+          </select>
+        </div>
+      </div>
+              <table>
+                  <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Country-Name</th>
+                    <th>State-Name</th>
+                    <th>City-Name</th>
+                    <th>Category-Name</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Distance</th>
+                    <th>Time</th>
+                    <th>Website</th>
+                    <th>Phone Number</th>
+                    <th>Url</th>
+                      <!-- <th>Created_at</th>
+                      <th>Updated_at</th> -->
+                  </tr>
+                  </thead>    
+                  <tbody>
+                   {% for d in details %}    
+                    <tr>
+                      <td>{{d.id}}</td>
+                      <td>{{d.country}}</td>
+                      <td>{{d.state}}</td>
+                      <td>{{d.city}}</td>
+                      <td>{{d.category}}</td>
+                      <td>{{d.name}}</td>
+                      <td>{{d.address}}</td>
+                      <td>{{d.distance}}</td>
+                      <td>{{d.time}}</td>
+                      <td>{{d.website}}</td>
+                      <td>{{d.phone_no}}</td>
+                      <td>{{d.url}}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+              </table>
+              <div class="row">
+                <input type="submit" value="home" onchange="checkAlert(event)">
+              </div>
+    </form>
+    <!-- <script>
+      function checkAlert(evt){
+          console.log(evt.target.value);
+          myForm2 = document.getElementById("myForm2");
+          myForm2.submit();
+      }
+  </script> -->
+  <script>
+    let countryId = 0;
+    let stateId = 0;
+    let cityId = 0;
+    let categoryId = 0;
+    function checkAlert(evt, name){
+      if(name === 'country') {
+        this.countryId = evt.target.value;
+        window.location.href = "/details/"  + "?country_id=" + encodeURIComponent(this.countryId) ;
+        // x =document.getElementById("country");
+        // i = x.selectedIndex;
+        // document.getElementById("c1").innerHTML = x.options[i].text;
+      } 
+      else if(name ==='state') {
+        this.stateId = evt.target.value;
+        window.location.href = "/details/"  + "?state_id=" + encodeURIComponent(this.stateId) ;
+        // x1 =document.getElementById("state");
+        // i = x1.selectedIndex;
+        // document.getElementById("c2").innerHTML = x1.options[i].text;
+      }
+      else if(name ==='city') {
+        this.cityId = evt.target.value;
+        window.location.href = "/details/"  + "?city_id=" + encodeURIComponent(this.cityId) ;
+        // x3 =document.getElementById("city");
+        // i = x3.selectedIndex;
+        // document.getElementById("c3").innerHTML = x3.options[i].text;
+      }
+      else if(name ==='category') {
+        this.categoryId = evt.target.value;
+        window.location.href = "/details/"  + "?category_id=" + encodeURIComponent(this.categoryId) ;
+        // x4 =document.getElementById("category");
+        // i = x4.selectedIndex;
+        // document.getElementById("c4").innerHTML = x4.options[i].text;
+      }
+      let data = {
+        country_id : this.countryId,
+        state_id : this.stateId,
+        city_id : this.cityId,
+        category_id : this.categoryId
+      }
+      // console.log(data);
+      // window.location.href = "/details/"  + "?data=" + encodeURIComponent(data);
+      
+      
+        // console.log(evt.target.value);
+        // myForm2 = document.getElementById("myForm");
+        // myForm2.submit();
+    }
+</script>
+  </div>
+    </div>
+  </div>
+{% endblock %}

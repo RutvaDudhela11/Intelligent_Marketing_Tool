@@ -1,0 +1,255 @@
+{% extends "web.html" %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <title>Dependent Dropdown with Search Box using Python Flask jQuery Ajax and PostgreSQL Database</title> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css" />
+  </head>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+  <form action="{{url_for('phone_list')}}"  method ="POST" id="myForm">
+    <div class="row">
+      <div class="col-25">
+          <label>Select Country:</label>
+      </div>
+      <div class="col-25">
+          <select name="country" data-live-search="true" id="country" class="form-control" title="Select Country" > 
+          {% for row in country %}
+          <option value="{{row[0]}}">{{row[1]}}</option>
+          {% endfor %}
+          </select>
+      </div>
+    </div>
+  </form>
+    
+  <form action="{{url_for('phone_list')}}"  method ="POST" id="myForm">
+
+    <div class="row">
+      <div class="col-25">
+          <label>Select State:</label>
+      </div>
+      <div class="col-25">
+          <select name="state" data-live-search="true" id="state" class="form-control" title="Select State"> 
+            {% for row in state %}
+            <option value="{{row[0]}}">{{row[1]}}</option>
+            {% endfor %}
+        </select>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-25">
+          <label>Select City:</label>
+      </div>
+      <div class="col-25">
+          <select name="city" data-live-search="true" id="city" class="form-control" title="Select city"  onchange="checkAlert(event)">
+            {% for row in city %}
+            <option value="{{row[0]}}">{{row[1]}}</option>
+            {% endfor %}
+          </select>
+      </div>
+      </div>
+      <script>
+        function checkAlert(evt){
+            console.log(evt.target.value);
+            myForm = document.getElementById("myForm");
+            myForm.submit();
+        }
+    </script>
+      <div class="row">
+        <div class="col-25">
+        <label for="category-names">Choose a Category:</label></div>
+        <div class="col-25">
+        <select name="selection" id="category" >
+            <option value="select">select category.....</option>
+            {%- for category in category %}
+                              <option value="{{ category[0] }}">{{ category[1] }}</option> 
+            {%- endfor %}
+        </select>
+        </div>
+      </div>
+  </form>
+  <!-- <script>
+      function checkAlert(evt){
+          console.log(evt.target.value);
+          myForm = document.getElementById("myForm");
+          myForm.submit();
+      }
+  </script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        $("#country").selectpicker();
+
+        $("#state").selectpicker();
+
+        function load_data(type, country_id) {
+            $.ajax({
+                url: "/phone/phone_state1",
+                method: "POST",
+                data: { type: type, country_id: country_id },
+                dataType: "json",
+                success: function (data) { //alert(country_id)
+                    var html = "";
+                    for (var count = 0; count < data.length; count++) {
+                        html += '<option value="' + data[count].id + '">' + data[count].name + "</option>";
+                    }
+                    if (type == "carData") {
+                        $("#country").html(html);
+                        $("#country").selectpicker("refresh");
+                    } else {
+                        $("#state").html(html);
+                        $("#state").selectpicker("refresh");
+                    }
+                },
+            });
+        }
+
+        $(document).on("change", "#country", function () {
+            var country_id = $("#country").val();
+            load_data("carModeldata", country_id);
+        });
+    });
+</script>
+<script>
+  $(document).ready(function () {
+      $("#state").selectpicker();
+
+      $("#city").selectpicker();
+
+      function load_data(type, state_id) {
+          $.ajax({
+              url: "/phone/phone_city1",
+              method: "POST",
+              data: { type: type, state_id: state_id },
+              dataType: "json",
+              success: function (data) { //alert(category_id)
+                  var html = "";
+                  for (var count = 0; count < data.length; count++) {
+                      html += '<option value="' + data[count].id + '">' + data[count].name + "</option>";
+                  }
+                  if (type == "carData") {
+                      $("#state").html(html);
+                      $("#state").selectpicker("refresh");
+                  } else {
+                      $("#city").html(html);
+                      $("#city").selectpicker("refresh");
+                  }
+              },
+          });
+      }
+
+      $(document).on("change", "#state", function () {
+          var state_id = $("#state").val();
+          load_data("carModeldata", state_id);
+      });
+  });
+</script>
+<h2>Enter below details</h2>
+<!-- <form action="http://127.0.0.1:4000/phone_list/whatsApp", method ="post"> -->
+<form action="http://127.0.0.1:4000/phone_list/whatsApp", method ="post", enctype="multipart/form-data">
+  <table>
+    <thead>
+      <tr>
+          <th> Country_Name</th>
+          <th> State_Name</th>
+          <th> City_Name</th>
+          <th> Category_Name</th>
+          <th> Name</th>
+          <th>Phone No</th>
+          <!-- <th>Select All<input type="checkbox"  name="mycheck" value='select all'></th> -->
+      </tr>
+      </thead>    
+      <tbody>
+       {% for row in Phonelist %}    
+              <tr>
+                  <td>{{row[1]}}</td>
+                  <td>{{row[2]}}</td>
+                  <td>{{row[3]}}</td>
+                  <td>{{row[0]}}</td>
+                  <td>{{row[4]}}</td>
+                  <td>{{row[5]}}</td>
+
+                  <td> <input type="checkbox"  name="mycheck" value= {{row[1]}} ></td>
+                  <!-- <td>{{row[1]}} <input type="checkbox"  name="mycheck" value= {{row[1]}} ></td>
+                  <td>{{row[1]}} <input type="checkbox"  name="mycheck" value= {{row[1]}} ></td> -->
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+          <th> Name</th>
+          <th>Phone No</th>
+          <!-- <th>Select All<input type="checkbox"  name="mycheck" value='select all'></th> -->
+      </tr>
+      </thead>    
+      <tbody>
+       {% for row in PHONE %}    
+              <tr>
+                  <td>{{row[0]}}</td>
+                  <td>{{row[1]}}</td>
+                  <td> <input type="checkbox"  name="mycheck" value= {{row[1]}} ></td>
+                  <!-- <td>{{row[1]}} <input type="checkbox"  name="mycheck" value= {{row[1]}} ></td>
+                  <td>{{row[1]}} <input type="checkbox"  name="mycheck" value= {{row[1]}} ></td> -->
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">Enter Massage:</label>
+    </div>
+    <div class="col-25">
+      <input type="text" id="msg" name="massage" placeholder="Enter massage you want to send..">
+    </div>
+  </div>
+  <div class="row">
+    <label for="fname">Select a image to upload:</label>
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div>
+    {% endif %}
+    <!-- <form method="post" action="/" enctype="multipart/form-data"> -->
+        <dl>
+            <p>
+                <input type="file" name="img-file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+        <!-- <p>
+            <input type="submit" value="Show Image" class="btn btn-info">
+        </p> -->
+    <!-- </form> -->
+  </div>
+  <div class="row">
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+
+</body>
+</html>
+
+{% endblock %}
+

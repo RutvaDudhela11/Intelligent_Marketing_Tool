@@ -1,0 +1,22 @@
+{% extends "web.html" %}
+{% block body %}
+<div class="main">
+   <div class="container">
+      <form action = "{{ request.path }}" method = "post">
+         <!-- <form action="http://127.0.0.1:4000/search/submit", method ="post" > -->
+            {% csrf_token %}
+         
+            <!-- Using the formset -->
+            {{ form.as_p }}
+          
+              <!-- <input type="text" id="state" name="state" > -->
+  
+         <!-- <label for = "addr">addr</label><br>
+         <textarea name = "addr" placeholder = "addr"></textarea><br>
+         <label for = "PIN">City</label><br>
+         <input type = "text" name = "pin" placeholder = "pin" /><br> -->
+         <input type = "submit" value = "Submit" />
+      </form>
+   </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "web.html" %}
+{% block body %}
+<div class="main">
+   <div class="container">
+      <h1>States</h1>
+		<a href = "{% url 'add state' %}"><input type="button" id="fup" name="update" value="Add New State"></a>
+      <form method="post">
+      <table>
+         <thead>
+            <tr>
+               <!-- <th>countryName</th> -->
+               <th>Serial No.</th>
+               <th>CountryName</th>
+               <th>StateName</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for s in state %}
+               <tr>
+                  <td name= "c_name">{{ s.serial }}</td>
+                  <td name= "c_name" >{{ s.country }}</td>
+                  <td name= "c_name" >{{ s.state_name }}</td>
+                  <td><a href="{% url 'update state' s.id %}"
+                  onclick="return confirm('Do you want to permanently update  {{ s.state_name }}?');" title="update a city"><i class="material-icons" style="font-size:16px"></i><input type="button" id="fup" name="update" value="Edit"></a> 
+                  <a href="{% url 'delete state' s.id %}"
+                  onclick=" return confirm('Do you want to permanently delete State {{ s.id }}?');" title="Delete a city"><i class="material-icons" style="font-size:16px"><input type="button" id="fdelete" name="{{ s.id }}" value="Delete"></a>
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      </form>
+   </div>
+</div>
+ {% endblock %}

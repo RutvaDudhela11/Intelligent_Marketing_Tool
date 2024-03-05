@@ -1,0 +1,21 @@
+{% extends "web.html" %}
+{% block body %}
+<div class="main">
+   <div class="container">
+      <form action = "{{ request.path }}" method = "post">
+         <!-- Security token -->
+            {% csrf_token %}
+         
+            <!-- Using the formset -->
+            {{ form.as_p }}
+          
+      
+         <!-- <label for = "addr">addr</label><br>
+         <textarea name = "addr" placeholder = "addr"></textarea><br>
+         <label for = "PIN">City</label><br>
+         <input type = "text" name = "pin" placeholder = "pin" /><br> -->
+         <input type = "submit" value = "Submit" />
+      </form>
+   </div>
+</div>
+{% endblock %}
