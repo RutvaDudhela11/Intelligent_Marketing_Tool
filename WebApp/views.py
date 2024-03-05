@@ -318,7 +318,8 @@ def Process(request):
                             city = URL[j]['city_id']
                             category = URL[j]['category_id']
                             # print('url of webApp',url)
-                            driver = webdriver.Chrome(executable_path="C:\\Users\BinTech\Downloads\chromedriver_win32 (1)\\chromedriver")
+                            # driver = webdriver.Chrome(executable_path="C:\\Users\BinTech\Downloads\chromedriver_win32 (1)\\chromedriver")
+                            driver = webdriver.Chrome(executable_path="C:\\Webdrivers\\chromedriver.exe")
                             driver.implicitly_wait(1)
                             try:
                                 driver.set_page_load_timeout(25)
